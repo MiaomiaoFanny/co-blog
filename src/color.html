@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/color.css">
+  <title>Test</title>
+</head>
+
+<body>
+  <header>
+    <a href="/" class="go-back router-link-active"> <span>←</span>Back </a>
+    <div class="copyformat-container">
+      <div class="copy-bar"><span>Copy Format:</span> HEX (#AA1923) </div>
+      <ul class="format-dd" style="display: none">
+        <li class="format-option">HEX (#AA1923)</li>
+        <li class="format-option">HEX (AA1923)</li>
+        <li class="format-option">RGB - (1,2,3)</li>
+        <li class="format-option">RGBA - (1,2,3,0.4)</li>
+        <li class="more-colors"> <a href="/subscribe" class=""> ☝️ &nbsp; &nbsp;Want more colors? </a> </li>
+        <li class="feedback"><a target="_blank" href="javascript:;"> 👋 &nbsp; &nbsp;Feedback </a></li>
+      </ul>
+    </div>
+    <a href="javascript:;" class="toggle-sound on">
+      <span id='sound-on'>Sound On 🔊</span>
+    </a>
+  </header>
+  <div class="color-box"> </div>
+  <script>
+    const lll = console.log;
+    // topCopyBar
+    const topCopyBar = document.getElementsByClassName('copy-bar').item(0)
+    topCopyBar.onclick = () => {
+      document.getElementsByClassName('format-dd').item(0).style.display =
+        Array.from(topCopyBar.classList).includes('isOpen') ? 'block' : 'none'
+      topCopyBar.classList.toggle('isOpen')
+    }
+    topCopyBar.click()
+
+    // sound
+    const sound = document.getElementsByClassName('toggle-sound').item(0)
+    const soundOn = document.getElementById('sound-on')
+    const soundOff = document.getElementById('sound-off')
+    sound.onclick = () => {
+      if (Array.from(sound.classList).includes('on')) {
+        sound.innerHTML = ` <span id='sound-on'>Sound Off 🔇</span> `
+      } else {
+        sound.innerHTML = ` <span id='sound-on'>Sound On 🔊</span> `
+      }
+      sound.classList.toggle('on')
+    }
+
+    // colors box
+    var colorList = [
+      { background: "rgb(26, 188, 156);", code: "#1abc9c", text: "TURQUOISE" },
+      { background: "rgb(46, 204, 113);", code: "#2ecc71", text: "EMERALD" },
+      { background: "rgb(52, 152, 219);", code: "#3498db", text: "PETER RIVER" },
+      { background: "rgb(155, 89, 182);", code: "#9b59b6", text: "AMETHYST" },
+      { background: "rgb(52, 73, 94);", code: "#34495e", text: "WET ASPHALT" },
+      { background: "rgb(22, 160, 133);", code: "#16a085", text: "GREEN SEA" },
+      { background: "rgb(39, 174, 96);", code: "#27ae60", text: "NEPHRITIS" },
+      { background: "rgb(41, 128, 185);", code: "#2980b9", text: "BELIZE HOLE" },
+      { background: "rgb(142, 68, 173);", code: "#8e44ad", text: "WISTERIA" },
+      { background: "rgb(44, 62, 80);", code: "#2c3e50", text: "MIDNIGHT BLUE" },
+      { background: "rgb(241, 196, 15);", code: "#f1c40f", text: "SUN FLOWER" },
+      { background: "rgb(230, 126, 34);", code: "#e67e22", text: "CARROT" },
+      { background: "rgb(231, 76, 60);", code: "#e74c3c", text: "ALIZARIN" },
+      { background: "rgb(236, 240, 241);", code: "#ecf0f1", text: "CLOUDS" },
+      { background: "rgb(149, 165, 166);", code: "#95a5a6", text: "CONCRETE" },
+      { background: "rgb(243, 156, 18);", code: "#f39c12", text: "ORANGE" },
+      { background: "rgb(211, 84, 0);", code: "#d35400", text: "PUMPKIN" },
+      { background: "rgb(192, 57, 43);", code: "#c0392b", text: "POMEGRANATE" },
+      { background: "rgb(189, 195, 199);", code: "#bdc3c7", text: "SILVER" },
+      { background: "rgb(127, 140, 141);", code: "#7f8c8d", text: "ASBESTOS" }
+    ];
+    const colorBox = document.querySelector('.color-box');
+    for(let i in colorList) {
+      let div = document.createElement('div');
+      let span = document.createElement('span');
+      let a = document.createElement('a');
+      a.href = 'javascript:;';
+      span.innerText = colorList[i].text;
+      div.className = 'color';
+      div.setAttribute('style', 'background: '+ colorList[i].background);
+      div.append(a);
+      div.append(span);
+      div.onclick = () => {
+        lll('clicked', i*1+1, colorList[i].text, colorList[i].code, colorList[i].background);
+      }
+      colorBox.append(div);
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/ionicons.min.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/main.min.css">
+  <title>TRANSLATION</title>
+</head>
+<body>
+  <div id="app" style="padding: 30px">
+    <h1 :title="message" v-once>{{title}}</h1>
+    <p :style="{fontSize: postFontSize + 'em'}">Computed reversed title: {{ reversedTitle }}
+      <span :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }"
+        >Watching title: {{title2}}</span>
+        <button-counter text="Clicked" @enlarge-text="postFontSize+= $event"></button-counter>
+        <button-counter text="Touched"></button-counter>
+        <custom-input v-model="customText"></custom-input>
+        <span>customText: {{customText}}</span>
+        <alert-box>Something Bad Happened!</alert-box>
+        <div id="dynamic-component-demo">
+          <tab @click="currentTabComponent = 'TabHome'">Home</tab>
+          <tab @click="currentTabComponent = 'TabPosts'">Posts</tab>
+          <tab @click="currentTabComponent = 'TabArchive'">Archive</tab>
+          <component :is="currentTabComponent"></component>
+          <navigation-link url='/translation.html' :user="user">
+            <template #linktext="linkScope">
+              <span class="fa fa-user"></span>Your Profile {{linkScope.url}}
+            </template>
+            <template #[dynamicSlotName]="{user = { firstName: 'Guest' }}">{{user.lastName}}</template>
+            <custom-input v-model="user.lastName"></custom-input>
+          </navigation-link>
+          <navigation-link #default url='/wireless.htm' :user="user">
+            <!-- <template v-slot:linktext>
+              <span class="fa fa-user"></span>My Profile
+            </template> -->
+            <!-- <custom-input v-model="customText" v-slot:linktext></custom-input> -->
+          </navigation-link>
+        </div>
+        <!-- <blog-post v-for="post in posts"
+        :post="post"
+        :key="post.id"
+        :postFont="postFontSize"
+        ></blog-post> -->
+    </p>
+    <hr>
+    <div id="form-input-example">
+      <!-- TEXT -->
+      <label for="titleInput"> Text:
+        <input type="text" id="titleInput"
+          @click.ctrl.exact="clickTitleInput"
+          @keyup="blurTitleInput"
+          @keydown.right="rightTitleInput"
+          :class="classObject"
+          v-model.lazy.trim="title" />
+        <button id="reverseBtn" :disabled="isButtonDisabled"
+            @click="reverseTitle('', $event)"
+            class="static"
+            :class="{active:isActive, error:hasError}"
+            >Reverse</button>
+      </label>
+      <label>
+        <base-input v-model="normalInput" @change="" v-bind:label="'Base Input'" required placeholder="a basic input"></base-input>
+      </label>
+
+      <!-- TEXTAREA -->
+      <label for="formTextarea"> Textarea:
+        <textarea id="formTextarea"
+          placeholder="add multiple lines"
+          v-model="textareaValue"></textarea>
+        <span style="white-space: pre-line;">value: {{textareaValue}}</span>
+      </label>
+
+      <!-- CHECKBOX -->
+      <label for="formCheckbox1"> CheckBox1:
+        <input type="checkbox" id="formCheckbox1"
+          true-value="yes"
+          false-value="no"
+          v-model="checkbox1">
+        <span>value: {{checkbox1}}</span>
+      </label>
+      <label> Base CheckBox
+        <base-checkbox v-model='checkbox2'></base-checkbox>
+        checkbox2 value: {{checkbox2}}
+      </label>
+
+      <label id="formCheckboxs">Checkbox list:
+        <input type="checkbox" id="jack" value="Jack"
+          v-model="checkboxList">
+        <label for="jack" style="display: inline;"> Jack </label>
+        <input type="checkbox" id="john" value="John"
+          v-model="checkboxList">
+        <label for="john" style="display: inline;"> John </label>
+        <input type="checkbox" id="mike" value="Mike"
+          v-model="checkboxList">
+        <label for="mike" style="display: inline;">Mike </label>
+        <span>value: {{checkboxList}} </span>
+      </label>
+
+      <!-- RADIO -->
+      <div id="formRadio">
+        <label>Single Radio:
+          <input type="radio" id="single" value="single"
+            v-model="radio1">
+          <label for="single" style="display: inline;">Single </label>
+          <span>value: {{radio1}}</span>
+        </label>
+
+        <label>Group Radio:
+          <input type="radio" id="one" value="one"
+            v-model="radio2">
+          <label for="one" style="display: inline;">One </label>
+          <input type="radio" id="two" value="two"
+            v-model="radio2">
+          <label for="two" style="display: inline;">Two </label>
+          <span>value: {{radio2}}</span>
+        </label>
+      </div>
+
+      <!-- SELECT -->
+      <label for="formSelect">Select:
+        <select id="formSelect"
+          v-model="select1">
+          <option value="" disabled>please select one</option>
+          <option>A</option>
+          <option>B</option>
+          <option>C</option>
+          <option :value="{id:4, text:'D'}">D</option>
+        </select>
+        <span>value: {{select1}}</span>
+      </label>
+      <label for="formSelectList">Multiple Select:
+        <select multiple id="formSelectList"
+          style="width: 200px; height: 100%"
+          v-model="selectList">
+          <option v-for="item in groceryList" :value="item">{{item.text}}</option>
+          <option :value.number="3">牛肉</option>
+        </select>
+        <span>value: {{selectList}}</span>
+      </label>
+    </div>
+    <hr>
+
+    <div id="todo-list-example">
+      <form @submit.prevent="addNewTodo">
+        <label for="new-todo">Add a todo</label>
+        <input v-model.trim="newTodoText"
+          id="new-todo"
+          placeholder="E.g. Feed the cat"
+        />
+        <button>Add</button>
+      </form>
+      <ul>
+        <li is="todo-item"
+          v-for="(todo, index) in todos"
+          :key="todo.id"
+          :title="todo.title"
+          :type="todo.type"
+          @remove="removeTodo(index)"
+        ></li>
+      </ul>
+      <span>Deleted items</span>
+      <ul>
+        <li is="todo-item"
+          v-for="(todo, index) in todosRemoved"
+          :key="todo.id"
+          :title="todo.title"
+          :type="todo.type"
+          @add="todo.type=''; todos.push(todo); todosRemoved.splice(index, 1)"
+        ></li>
+      </ul>
+    </div>
+    <hr>
+
+    <p :style="[baseStyles, overridingStyles]">now: {{now}}</p>
+    <form @submit.prevent="onSubmit">...</form>
+    <p :class="[isActive?activeClass:'', errorClass]"
+      :style="{color: activeColor, fontSize: fontSize + 'px'}"
+      >rawHtml 1: {{rawHtml + title}}</p>
+    <p :class="{activeClass, errorClass}"
+      :style="styleObject"
+      v-html="rawHtml"
+      >old message!!!</p>
+
+    <p><template v-for="n in 10">{{n}} - </template></p>
+    <template v-if="seen">
+      <ol>
+        <grocery-item v-for="(item, index) in groceryList"
+          :class="{active:isActive, error:hasError}"
+          :grocery="item"
+          :key="item.id"></grocery-item>
+        <li v-for="(value, key, index) in baseStyles">
+          {{index+1}}. {{key}}: {{value}}
+        </li>
+      </ol>
+      <p>total: {{groceryList.length}} {{now}} {{Math.random()}} {{Object}}</p>
+    </template>
+    <p v-else-if="listMsg">{{listMsg}}</p>
+    <p v-else>Oh No!!!</p>
+    <template v-if="loginType==='username'">
+      Username: <input placeholder="Please enter username" key="username-input"/>
+    </template>
+    <template v-else>
+      Email: <input placeholder="Please enter email" key="email-input"/>
+    </template>
+    <div>
+      Question: <input v-model="question" /> <img :src="answerImg" />
+      <p>Answer: {{answer}}</p>
+    </div>
+    <div id="content">
+      <p><a v-show="seen" href="tran">>>> TRANSLATE how-browserify-works.html</a></p>
+      <a :[attributeHref]='indexUrl'><--Back</a>
+    </div>
+  </div>
+  <script src="js/vue.js"></script>
+  <script src="js/axios.min.js"></script>
+  <script src="js/lodash.min.js"></script>
+  <script src="js/translate.js"></script>
+  
+</body>
+</html>
