@@ -8,8 +8,8 @@
 
 ## 2019
 ### 七月：
-- [ ] **第 1 周** 6/30-7/6 :high_brightness:
-   1. @fanny - [(JS)defineProperty 详解](/docs/20190706-js-defineProperty.md)
+- [x] **第 1 周** 6/30-7/6 :high_brightness:
+   1. @fanny - [(JS)property api 总结整理](/docs/20190706-js-property-api.md)
    1. @ocean - [(ES6) Object 新增API用法整理](/docs/20190706-es6-array.md)
 
 - [ ] **第 2 周** 7/6-7/13 :
