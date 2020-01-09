@@ -8,12 +8,12 @@
 
 ## 2019
 ### 七月：
-- [x] **第 1 周** 6/30-7/6 :high_brightness:
+- [x] **第 1 周** 6/30-7/6
    1. @fanny - [(JS)property api 总结整理](/docs/20190706-js-property-api.md)
    1. @ocean - [(ES6) Object 新增API用法整理](/docs/20190706-es6-array.md)
 
-- [ ] **第 2 周** 7/6-7/13 :
-   1. @fanny -
+- [ ] **第 2 周** 7/6-7/13 :high_brightness:
+   1. @fanny - [(web) XSS CSRF ... 各种攻击 及 解决](/docs/20190713-es6-class-vs-function.md)
    1. @ocean -
 
 - [ ] **第 3 周** 7/14-7/20:
